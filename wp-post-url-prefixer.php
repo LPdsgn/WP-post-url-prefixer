@@ -15,18 +15,31 @@
  * Version:         0.2.0
  */
 
+if (!defined('ABSPATH')) {
+    die; // Exit if accessed directly
+}
+
+// Include il file plugin.php per utilizzare is_plugin_active()
+require_once(ABSPATH . 'wp-admin/includes/plugin.php');
+
+// Include le funzioni di gestione delle impostazioni
+require_once plugin_dir_path(__FILE__) . 'admin.php';
+
+
 /**
  * Get the singular prefix of the post Post type.
  */
 function wp_pup_get_singular_url_prefix() {
-	return \apply_filters( 'wp_pup_singular_prefix', 'blog' );
+	$options = get_option( 'wp_pup_options' );
+	return \apply_filters( 'wp_pup_singular_prefix', $options['singular_prefix'] ?? 'blog' );
 }
 
 /**
  * Get the archive slug of the post Post type.
  */
 function wp_pup_get_archive_url_prefix() {
-	return \apply_filters( 'wp_pup_archive_slug', 'blog' );
+	$options = get_option( 'wp_pup_options' );
+	return \apply_filters( 'wp_pup_archive_slug', $options['archive_slug'] ?? 'blog' );
 }
 
 /**

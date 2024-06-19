@@ -23,23 +23,27 @@ if (!defined('ABSPATH')) {
 require_once(ABSPATH . 'wp-admin/includes/plugin.php');
 
 // Include le funzioni di gestione delle impostazioni
-require_once plugin_dir_path(__FILE__) . 'admin.php';
+require_once plugin_dir_path(__FILE__) . 'admin/admin.php';
 
 
 /**
  * Get the singular prefix of the post Post type.
  */
 function wp_pup_get_singular_url_prefix() {
-	$options = get_option( 'wp_pup_options' );
-	return \apply_filters( 'wp_pup_singular_prefix', $options['singular_prefix'] ?? 'blog' );
+    $options = get_option( 'wp_pup_options' );
+    return \apply_filters( 'wp_pup_singular_prefix', $options['singular_prefix'] ?? 'blog' );
 }
 
 /**
  * Get the archive slug of the post Post type.
  */
 function wp_pup_get_archive_url_prefix() {
-	$options = get_option( 'wp_pup_options' );
-	return \apply_filters( 'wp_pup_archive_slug', $options['archive_slug'] ?? 'blog' );
+    $options = get_option( 'wp_pup_options' );
+    if ( isset( $options['enable_archive'] ) && $options['enable_archive'] == 1 ) {
+        return \apply_filters( 'wp_pup_archive_slug', $options['archive_slug'] ?? 'blog' );
+    } else {
+        return \apply_filters( 'wp_pup_archive_slug', false );
+    }
 }
 
 /**

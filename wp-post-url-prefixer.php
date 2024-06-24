@@ -23,8 +23,7 @@ if (!defined('ABSPATH')) {
 require_once(ABSPATH . 'wp-admin/includes/plugin.php');
 
 // Include le funzioni di gestione delle impostazioni
-require_once plugin_dir_path(__FILE__) . 'admin/admin.php';
-
+require_once plugin_dir_path(__FILE__) . '/admin/admin.php';
 
 /**
  * Get the singular prefix of the post Post type.
